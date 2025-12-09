@@ -1,0 +1,27 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: llava-model
+  namespace: default
+spec:
+  template:
+    metadata:
+      annotations:
+        # Scale to Zero settings (The "Serverless" feel)
+        autoscaling.knative.dev/min-scale: "0"
+        autoscaling.knative.dev/target: "1"
+    spec:
+      containers:
+        - image: llava-model:local # Matches what we build in the script
+          imagePullPolicy: Never   # IMPORTANT: Force Kind to use the local image
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: "6Gi" 
+              # NOTE: Unless you have Nvidia-Docker runtime set up with Kind, 
+              # this pod might fail to schedule if you uncomment the GPU line.
+              # nvidia.com/gpu: "1" 
+          env:
+            - name: HUGGING_FACE_HUB_TOKEN
+              value: "YOUR_HF_TOKEN_HERE" # Needed for Llava 1.6!

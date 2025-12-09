@@ -1,0 +1,19 @@
+environment_variables: {}
+external_package_dirs: []
+model_metadata: {}
+model_name: llava-mistral-quantized
+python_version: py310
+requirements:
+- torch
+- transformers
+- accelerate
+- bitsandbytes
+- pillow
+- scipy
+resources:
+  accelerator: A10G  # Just for metadata, we override this in K8s
+  cpu: "1"
+  memory: 4Gi
+  use_gpu: true
+secrets: {}
+system_packages: []
