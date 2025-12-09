@@ -6,15 +6,13 @@ echo "🔨 Generating Docker Context with Truss..."
 truss image build --target-directory ./model --build 
 
 
-# We will retag it to match our Kubernetes manifest for clarity.
-# Assuming truss built an image, let's find the latest one or force a build tag
 
 # ALTERNATIVE: The "Pure Docker" way (Safest for my  Interview Demo)
 # truss build --output-directory build_dir
 # docker build build_dir -t llava-model:local
 
 # Retag whatever truss built (usually 'baseten/model:latest' or similar)
-# OR simply run:
+
 docker build model -t llava-model:local
 
 echo "Loading Image into Kind..."
